@@ -1,0 +1,21 @@
+DATABASE LAB2
+
+
+
+CREATE INDEX btree_index_literature_title ON Literature(Title);
+CREATE INDEX hash_index_readers_lastname ON Readers(LastName);
+CREATE INDEX gist_index_library_address ON Library(Address);
+
+CREATE UNIQUE INDEX unique_index_literature_id ON Literature(LiteratureID);
+CREATE INDEX partial_index_readers_adults ON Readers(Age) WHERE Age >= 18;
+CREATE INDEX expression_index_literature_category_upper ON Literature(UPPER(LiteratureCategory));
+
+EXPLAIN SELECT * FROM Literature WHERE Title = 'Some Title';
+
+EXPLAIN SELECT * FROM Readers WHERE LastName = 'Smith' AND Age >= 18;
+
+EXPLAIN SELECT * FROM Library WHERE UPPER(Address) = 'SOME CITY';
+
+EXPLAIN SELECT * FROM Readers WHERE Age < 18;
+
+EXPLAIN SELECT * FROM Literature WHERE LiteratureCategory = 'Fiction';

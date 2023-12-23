@@ -1,0 +1,35 @@
+ALTER TABLE readers ADD COLUMN birth_date date;
+ALTER TABLE readers ADD COLUMN email character varying(255) COLLATE pg_catalog."default";
+
+CREATE TABLE IF NOT EXISTS books_info
+(
+    book_info_id serial PRIMARY KEY,
+    book_id integer REFERENCES books(book_id),
+    book_title character varying(255) COLLATE pg_catalog."default",
+    author character varying(255) COLLATE pg_catalog."default",
+    genre character varying(255) COLLATE pg_catalog."default",
+    price integer
+);
+
+ALTER TABLE library_records DROP COLUMN book_id;
+ALTER TABLE library_records DROP COLUMN issue_date;
+
+CREATE TABLE IF NOT EXISTS library_records_info
+(
+    record_id serial PRIMARY KEY,
+    reader_id integer REFERENCES readers(reader_id),
+    book_info_id integer REFERENCES books_info(book_info_id),
+    issue_date date
+);
+
+INSERT INTO books_info (book_id, book_title, author, genre, price) VALUES
+(1, '20000 Leagues Under the Sea', 'Jules Verne', 'Adventure', 500),
+(2, 'Biology for Higher Education', 'Law L.L.', 'Textbook', 200),
+(3, 'The Three Musketeers', 'A. Dumas', 'Adventure', 220),
+(4, 'Computer World', '-', 'Magazine', 35);
+
+INSERT INTO library_records_info (reader_id, book_info_id, issue_date) VALUES
+(1, 1, '2006-09-01'),
+(2, 2, '2006-09-02'),
+(3, 3, '2006-09-03'),
+(4, 4, '2006-09-04');

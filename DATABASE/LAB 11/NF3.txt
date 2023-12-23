@@ -1,0 +1,24 @@
+CREATE TABLE genres
+(
+    genre_id serial PRIMARY KEY,
+    genre_name character varying(255) COLLATE pg_catalog."default" UNIQUE
+);
+
+ALTER TABLE books_info
+ADD COLUMN genre_id integer REFERENCES genres(genre_id);
+
+
+
+INSERT INTO genres (genre_name) VALUES
+('Adventure'),
+('Textbook'),
+('Magazine');
+
+UPDATE books_info
+SET genre_id = g.genre_id
+FROM genres g
+WHERE books_info.genre = g.genre_name;
+
+
+ALTER TABLE books_info
+DROP COLUMN genre;

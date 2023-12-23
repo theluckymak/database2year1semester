@@ -1,0 +1,35 @@
+. 1. Объединение результатов двух запросов
+SELECT title FROM literature WHERE publicationyear > 2000
+UNION
+SELECT roomname FROM readingrooms WHERE numseats > 30;
+
+. 2. Объединение результатов трех запросов
+SELECT lastname FROM readers WHERE age < 30
+UNION
+SELECT name FROM library WHERE numemployees > 5
+UNION
+SELECT literaturecategory FROM literature WHERE numpages > 200;
+
+. 3. Разность результатов двух запросов
+SELECT title FROM literature WHERE literaturecategory = 'Fiction'
+EXCEPT
+SELECT title FROM literature WHERE publicationyear > 2000;
+
+. 4. Разность результатов трех запросов
+SELECT name FROM library WHERE numemployees > 5
+EXCEPT
+SELECT roomname FROM readingrooms WHERE numseats > 30
+EXCEPT
+SELECT firstname FROM readers WHERE age > 40;
+
+. 5. Пересечение результатов двух запросов
+SELECT title FROM literature WHERE literaturecategory = 'Fiction'
+INTERSECT
+SELECT title FROM literature WHERE publicationyear > 2000;
+
+. 6. Пересечение результатов трех запросов
+SELECT name FROM library WHERE numemployees > 5
+INTERSECT
+SELECT roomname FROM readingrooms WHERE numseats > 30
+INTERSECT
+SELECT firstname FROM readers WHERE age > 40;

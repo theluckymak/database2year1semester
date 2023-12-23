@@ -1,0 +1,14 @@
+1. Декартово произведение двух таблиц
+SELECT * FROM literature, readingrooms;
+2...4. Внутренние соединения двух таблиц по равенству
+SELECT * FROM literature INNER JOIN readingrooms ON literature.readingroomid = readingrooms.roomid;
+SELECT * FROM literature INNER JOIN readingrooms ON literature.readingroomid = readingrooms.roomid WHERE literature.publicationyear > 2000;
+SELECT * FROM literature INNER JOIN literatureissued ON literature.literatureid = literatureissued.literatureid INNER JOIN readers ON literatureissued.readerid = readers.readerid;
+5...7. Полные внешние соединения
+SELECT * FROM literature LEFT JOIN readingrooms ON literature.readingroomid = readingrooms.roomid;
+SELECT * FROM literature RIGHT JOIN readingrooms ON literature.readingroomid = readingrooms.roomid;
+SELECT * FROM literature FULL JOIN readingrooms ON literature.readingroomid = readingrooms.roomid;
+8 .15. Использование внешних соединений с удалением избыточности
+SELECT DISTINCT * FROM literature LEFT JOIN readingrooms ON literature.readingroomid = readingrooms.roomid;
+SELECT DISTINCT * FROM literature RIGHT JOIN readingrooms ON literature.readingroomid = readingrooms.roomid;
+SELECT DISTINCT * FROM literature FULL JOIN readingrooms ON literature.readingroomid = readingrooms.roomid;

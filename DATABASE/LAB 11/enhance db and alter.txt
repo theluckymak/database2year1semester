@@ -1,0 +1,37 @@
+CREATE TABLE IF NOT EXISTS author_info
+(
+    author_id serial PRIMARY KEY,
+    author_name character varying(255) COLLATE pg_catalog."default" UNIQUE
+);
+
+UPDATE books_info
+SET author_id = a.author_id
+FROM author_info a
+WHERE books_info.author = a.author_name;
+
+ALTER TABLE books_info
+DROP COLUMN author;
+
+
+ALTER TABLE readers
+ADD COLUMN email character varying(255) COLLATE pg_catalog."default";
+
+
+SELECT r.reader_full_name, b.book_title, l.issue_date
+FROM library_records_info l
+JOIN readers r ON l.reader_id = r.reader_id
+JOIN books_info b ON l.book_info_id = b.book_info_id
+WHERE r.reader_full_name = 'Avdeeva Ekaterina Ivanovna';
+
+
+SELECT r.reader_full_name, SUM(b.price) AS total_price
+FROM library_records_info l
+JOIN readers r ON l.reader_id = r.reader_id
+JOIN books_info b ON l.book_info_id = b.book_info_id
+GROUP BY r.reader_full_name;
+
+
+SELECT a.author_name, SUM(b.price) AS total_earnings
+FROM books_info b
+JOIN author_info a ON b.author_id = a.author_id
+GROUP BY a.author_name;

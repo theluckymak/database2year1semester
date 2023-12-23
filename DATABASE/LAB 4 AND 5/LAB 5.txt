@@ -1,0 +1,35 @@
+CREATE DATABASE ShopDB;
+USE ShopDB;
+
+CREATE TABLE Persons (
+    PersonID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50)
+);
+
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(50),
+    Price DECIMAL(10, 2)
+);
+
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    PersonID INT,
+    ProductID INT,
+    OrderDate DATE,
+    FOREIGN KEY (PersonID) REFERENCES Persons(PersonID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
+
+
+
+INSERT INTO Persons (PersonID, FirstName, LastName)
+VALUES (1, 'John', 'Doe');
+
+INSERT INTO Products (ProductID, ProductName, Price)
+VALUES (1, 'Laptop', 999.99);
+
+INSERT INTO Orders (OrderID, PersonID, ProductID, OrderDate)
+VALUES (1, 1, 1, '2023-01-01');

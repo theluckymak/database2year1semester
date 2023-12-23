@@ -1,0 +1,39 @@
+1...2. Группировка по одному столбцу
+SELECT literaturecategory, COUNT(*) FROM literature GROUP BY literaturecategory;
+SELECT readingroomid, AVG(publicationyear) FROM literature GROUP BY readingroomid;
+
+3..4. Группировка по нескольким столбцам
+SELECT literaturecategory, readingroomid, COUNT(*) FROM literature GROUP BY literaturecategory, readingroomid;
+SELECT literaturecategory, readingroomid, AVG(publicationyear) FROM literature GROUP BY literaturecategory, readingroomid HAVING AVG(publicationyear) > 2000;
+
+5..6. Использование условия отбора групп HAVING
+SELECT literaturecategory, COUNT(*) FROM literature GROUP BY literaturecategory HAVING COUNT(*) > 5;
+SELECT readingroomid, AVG(publicationyear) FROM literature GROUP BY readingroomid HAVING AVG(publicationyear) > 2000;
+
+7..8. Использование фразы HAVING без фразы GROUP BY
+SELECT AVG(publicationyear) FROM literature HAVING AVG(publicationyear) > 2000;
+SELECT MAX(readingroomid) FROM literature HAVING MAX(readingroomid) > 5;
+
+9..10. Сортировка по столбцу
+SELECT title, publicationyear FROM literature ORDER BY publicationyear;
+SELECT title, publicationyear FROM literature ORDER BY publicationyear DESC;
+
+11..12. Добавление новых данных в таблицу
+INSERT INTO literature (title, literaturecategory) VALUES ('New Book 1', 'Fiction');
+INSERT INTO literature (title, literaturecategory) VALUES ('New Book 2', 'Non-Fiction');
+
+13..14. Добавление новых данных по результатам запроса
+INSERT INTO literature (title, literaturecategory) SELECT title, literaturecategory FROM literature WHERE publicationyear > 2000;
+INSERT INTO literature (title, literaturecategory) SELECT 'New Book 3', 'Science' FROM literature WHERE title = 'Some Book';
+
+15...16. Обновление существующих данных в таблице
+UPDATE literature SET literaturecategory = 'Updated Category' WHERE publicationyear > 2000;
+UPDATE literature SET numpages = numpages + 10;
+
+17....18. Обновление существующих данных по результатам подзапроса
+UPDATE literature SET literaturecategory = (SELECT MAX(literaturecategory) FROM literature WHERE publicationyear > 2000) WHERE publicationyear > 2000;
+UPDATE literature SET numpages = numpages * (SELECT AVG(numpages) FROM literature);
+
+19...20. Удаление существующих данных
+DELETE FROM literature WHERE publicationyear < 2000;
+DELETE FROM literature WHERE title = 'Some Book';

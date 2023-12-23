@@ -1,0 +1,44 @@
+CREATE DATABASE library :
+
+CREATE TABLE readers
+(
+    reader_id serial PRIMARY KEY,
+    document_number integer NOT NULL,
+    document_type character varying(255) COLLATE pg_catalog."default",
+    reader_full_name character varying(255) COLLATE pg_catalog."default"
+);
+
+CREATE TABLE books
+(
+    book_id serial PRIMARY KEY,
+    book_title character varying(255) COLLATE pg_catalog."default",
+    author character varying(255) COLLATE pg_catalog."default",
+    genre character varying(255) COLLATE pg_catalog."default",
+    price integer
+);
+
+CREATE TABLE library_records
+(
+    record_id serial PRIMARY KEY,
+    reader_id integer REFERENCES readers(reader_id),
+    book_id integer REFERENCES books(book_id),
+    issue_date date
+);
+
+INSERT INTO readers (document_number, document_type, reader_full_name) VALUES
+(123, 'Student ID', 'Avdeeva Ekaterina Ivanovna'),
+(125, 'Student ID', 'Troev Anton Antonovich'),
+(111, 'Pass', 'Konovalova Alla Ivanovna'),
+(122, 'Student ID', 'Krasnov Petr Egorovich');
+
+INSERT INTO books (book_title, author, genre, price) VALUES
+('20000 Leagues Under the Sea', 'Jules Verne', 'Adventure', 500),
+('Biology for Higher Education', 'Law L.L.', 'Textbook', 200),
+('The Three Musketeers', 'A. Dumas', 'Adventure', 220),
+('Computer World', '-', 'Magazine', 35);
+
+INSERT INTO library_records (reader_id, book_id, issue_date) VALUES
+(1, 1, '2006-09-01'),
+(2, 2, '2006-09-02'),
+(3, 3, '2006-09-03'),
+(4, 4, '2006-09-04');

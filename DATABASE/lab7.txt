@@ -1,0 +1,19 @@
+SELECT COUNT(*) AS TotalBooks FROM literature;
+
+SELECT COUNT(*) AS OlderReaders FROM readers WHERE age > 30;
+
+SELECT SUM(numpages) AS TotalPages FROM literature;
+
+SELECT SUM(numseats) AS TotalSeats FROM readingrooms;
+
+SELECT UPPER(firstname) AS UpperFirstName, UPPER(lastname) AS UpperLastName FROM readers;
+
+SELECT LOWER(title) AS LowerTitle FROM literature;
+
+SELECT GETDATE() AS CurrentDateTime;
+
+SELECT issueid, issuedate, DATENAME(WEEKDAY, issuedate) AS DayOfWeek FROM literatureissued;
+
+SELECT readerid, birthdate, DATEDIFF(YEAR, birthdate, GETDATE()) AS Age FROM readers;
+
+SELECT issueid, DATEDIFF(DAY, issuedate, returndate) AS DaysBetween FROM literatureissued WHERE returndate IS NOT NULL;

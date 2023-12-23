@@ -1,0 +1,26 @@
+SELECT * FROM grades WHERE grade > (SELECT AVG(grade) FROM grades);
+
+SELECT parent_code FROM parents WHERE student_code IN
+  (SELECT student_code FROM students WHERE last_name IN ('Markov', 'Ivanov'));
+
+SELECT discipline_name FROM disciplines WHERE discipline_code IN
+  (SELECT discipline_code FROM grades WHERE student_code = '2');
+
+SELECT parent_surname, workplace FROM parents WHERE parent_code IN
+  (SELECT parent_code FROM parent_student_relation WHERE student_code = 3);
+
+SELECT discipline_name FROM disciplines WHERE 5 IN
+  (SELECT grade FROM grades WHERE discipline_code = disciplines.discipline_code);
+
+SELECT teacher_surname FROM teachers WHERE '2' IN
+  (SELECT grade FROM grades WHERE teacher_code = teachers.teacher_code);
+
+SELECT discipline_name FROM disciplines WHERE
+  (SELECT AVG(grade) FROM grades WHERE discipline_code = disciplines.discipline_code) > 3;
+
+SELECT last_name FROM students WHERE
+  3 IN (SELECT grade FROM grades WHERE student_code = students.student_code)
+  AND 4 IN (SELECT grade FROM grades WHERE student_code = students.student_code);
+
+SELECT group_name FROM groups WHERE
+  6 = (SELECT COUNT(*) FROM students WHERE group_code = '11-200');

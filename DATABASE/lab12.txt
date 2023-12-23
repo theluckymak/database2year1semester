@@ -1,0 +1,13 @@
+SELECT * FROM literature, readingrooms;
+
+SELECT * FROM literature INNER JOIN readingrooms ON literature.readingroomid = readingrooms.roomid;
+SELECT * FROM literature INNER JOIN readingrooms ON literature.readingroomid = readingrooms.roomid WHERE literature.publicationyear > 2000;
+SELECT * FROM literature INNER JOIN literatureissued ON literature.literatureid = literatureissued.literatureid INNER JOIN readers ON literatureissued.readerid = readers.readerid;
+
+SELECT * FROM literature LEFT JOIN readingrooms ON literature.readingroomid = readingrooms.roomid;
+SELECT * FROM literature RIGHT JOIN readingrooms ON literature.readingroomid = readingrooms.roomid;
+SELECT * FROM literature FULL JOIN readingrooms ON literature.readingroomid = readingrooms.roomid;
+
+SELECT DISTINCT * FROM literature LEFT JOIN readingrooms ON literature.readingroomid = readingrooms.roomid;
+SELECT DISTINCT * FROM literature RIGHT JOIN readingrooms ON literature.readingroomid = readingrooms.roomid;
+SELECT DISTINCT * FROM literature FULL JOIN readingrooms ON literature.readingroomid = readingrooms.roomid;
